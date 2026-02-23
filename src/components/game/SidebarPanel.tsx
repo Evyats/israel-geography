@@ -148,15 +148,17 @@ export function SidebarPanel({
                 onToggleTerritories={onToggleTerritories}
               />
               <div className="grid justify-center gap-2">
-                <Button
-                  size="lg"
-                  className="h-14 min-w-[280px] rounded-full bg-gradient-to-l from-primary to-cyan-400 text-lg font-extrabold shadow-[0_14px_30px_rgba(34,145,255,0.32)] hover:from-primary/95 hover:to-cyan-400/95"
-                  data-no-continue="true"
-                  onClick={onStartGame}
-                  disabled={startDisabled}
-                >
-                  התחל משחק
-                </Button>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Button
+                    size="lg"
+                    className="h-14 min-w-[280px] rounded-full bg-gradient-to-l from-primary to-cyan-400 text-lg font-extrabold shadow-[0_14px_30px_rgba(34,145,255,0.32)] hover:from-primary/95 hover:to-cyan-400/95"
+                    data-no-continue="true"
+                    onClick={onStartGame}
+                    disabled={startDisabled}
+                  >
+                    התחל משחק
+                  </Button>
+                </motion.div>
                 <p className="min-h-5 text-center text-sm text-[#ff9f9f]">{warningText}</p>
               </div>
             </>

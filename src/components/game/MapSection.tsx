@@ -216,7 +216,9 @@ export function MapSection({
           onEachFeature={(feature, layer) => {
             const typedFeature = feature as LocalityFeature;
             const cityId = typedFeature.properties.id;
-            layer.on("click", () => onCityClick(cityId));
+            if (!showHoverTooltips) {
+              layer.on("click", () => onCityClick(cityId));
+            }
             if (showHoverTooltips) {
               layer.bindTooltip(typedFeature.properties.name_he, {
                 sticky: true,
@@ -233,15 +235,13 @@ export function MapSection({
               session.selectedFeatureId !== session.currentTargetId;
 
             if (isWrongSelection && (cityId === session.selectedFeatureId || cityId === session.currentTargetId)) {
-              const isClickedCity = cityId === session.selectedFeatureId;
-              const labelPrefix = isClickedCity ? "הבחירה שלכם" : "העיר הנכונה";
-              layer.bindTooltip(`${labelPrefix}: ${typedFeature.properties.name_he}`, {
+              layer.bindTooltip(typedFeature.properties.name_he, {
                 permanent: true,
                 direction: "top",
                 sticky: false,
                 offset: [0, -10],
                 opacity: 1,
-                className: isClickedCity ? "city-result-label-tooltip city-result-label-wrong" : "city-result-label-tooltip city-result-label-correct",
+                className: "city-hover-tooltip",
               });
               if ("getBounds" in layer && typeof layer.getBounds === "function") {
                 const center = layer.getBounds().getCenter();

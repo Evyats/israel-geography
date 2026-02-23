@@ -111,6 +111,47 @@ html.theme-transitioning body::before {
   transform: translate(10px, 10px);
 }
 
+.city-list-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(45, 126, 204, 0.75) rgba(182, 214, 242, 0.55);
+}
+
+.city-list-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.city-list-scroll::-webkit-scrollbar-track {
+  background: rgba(182, 214, 242, 0.55);
+  border-radius: 9999px;
+}
+
+.city-list-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(58, 153, 238, 0.92), rgba(36, 116, 196, 0.9));
+  border-radius: 9999px;
+  border: 2px solid rgba(182, 214, 242, 0.55);
+}
+
+.city-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(78, 172, 248, 0.95), rgba(45, 136, 216, 0.95));
+}
+
+.dark .city-list-scroll {
+  scrollbar-color: rgba(94, 177, 255, 0.82) rgba(19, 44, 72, 0.7);
+}
+
+.dark .city-list-scroll::-webkit-scrollbar-track {
+  background: rgba(19, 44, 72, 0.7);
+}
+
+.dark .city-list-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(110, 197, 255, 0.88), rgba(62, 151, 224, 0.86));
+  border-color: rgba(19, 44, 72, 0.7);
+}
+
+.dark .city-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(137, 212, 255, 0.94), rgba(85, 172, 236, 0.92));
+}
+
 .city-result-label-tooltip {
   background: transparent;
   border: none;
@@ -148,14 +189,17 @@ html.theme-transitioning body::before {
 
 .city-hit-correct {
   animation: city-hit-correct-pulse 560ms ease-out 1;
+  filter: drop-shadow(0 0 8px rgba(21, 184, 106, 0.85));
 }
 
 .city-hit-wrong {
   animation: city-hit-wrong-pulse 560ms ease-out 1;
+  filter: drop-shadow(0 0 8px rgba(226, 59, 59, 0.9));
 }
 
 .city-target-correct {
   animation: city-target-pulse 640ms ease-out 1;
+  filter: drop-shadow(0 0 8px rgba(16, 164, 84, 0.85));
 }
 
 @keyframes city-search-pulse {

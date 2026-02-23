@@ -1,19 +1,13 @@
 
-- map:
 
-do some animation around the segmented city chosen.
 
 modify map to not include city names and roads
 
-zoom out when choosing city to see both
+segmentation all around israel for removing everything out of israel
 
-remove lines on the map in the sea
-
-remove the plus minuse buttons on the map
-
-
-
+slider of difficulty instead of buttons
+slider is not continuous but segmented, for something like 5 levels
+cities will be in a file categorized to these segments
+that config file will have city names and not ids, as well as population size, for better user control
 
 
-
-start screen - when click on cities, the city name moves a bit for some weird reason.
