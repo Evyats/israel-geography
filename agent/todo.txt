@@ -1,0 +1,18 @@
+
+- map:
+
+do some animation around the segmented city chosen.
+
+modify map to not include city names and roads
+
+zoom out when choosing city to see both
+
+remove lines on the map in the sea
+
+remove the plus minuse buttons on the map
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #0f2747;
+  background:
+    radial-gradient(circle at 18% 12%, #8ec6ff 0%, transparent 44%),
+    radial-gradient(circle at 82% 82%, #b6dbff 0%, transparent 42%),
+    linear-gradient(135deg, #e5f2ff, #d6eaff 62%);
+}
+
+.dark {
+  color: #e6f2ff;
+  background:
+    radial-gradient(circle at 18% 12%, #1f4c88 0%, transparent 42%),
+    radial-gradient(circle at 82% 82%, #123666 0%, transparent 38%),
+    linear-gradient(135deg, #07172d, #04111f 62%);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  transition: background 3.2s ease, color 3.2s ease;
+}
+
+body {
+  margin: 0;
+  font-family: "Heebo", "Assistant", "Segoe UI", "Arial", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  direction: ltr;
+}
+
+.city-hover-tooltip {
+  transform: translate(10px, 10px);
+}
+
+.city-result-label-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.city-result-label-tooltip::before {
+  display: none;
+}
+
+.city-result-label-tooltip .leaflet-tooltip-content {
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-align: center;
+  direction: rtl;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.city-result-label-wrong .leaflet-tooltip-content {
+  background: rgba(240, 52, 52, 0.9);
+  color: #fff;
+}
+
+.city-result-label-correct .leaflet-tooltip-content {
+  background: rgba(16, 164, 84, 0.9);
+  color: #fff;
+}
+
+.city-search-highlight {
+  animation: city-search-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes city-search-pulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(245, 158, 11, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.75));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(245, 158, 11, 0));
+  }
+}
+
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 211 100% 46%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 211 100% 46%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 199 100% 56%;
+    --primary-foreground: 210 40% 10%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 100% 56%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}

@@ -1,0 +1,30 @@
+﻿# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+coverage/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional local outputs
+output/
