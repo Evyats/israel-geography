@@ -24,12 +24,13 @@ export default function App() {
     document.documentElement.setAttribute("dir", "rtl");
   }, []);
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showCityList, setShowCityList] = useState(false);
   const [mapCenter, setMapCenter] = useState<[number, number]>(INITIAL_CENTER);
   const [mapZoom, setMapZoom] = useState(INITIAL_ZOOM);
 
   const mapRef = useRef<LeafletMap | null>(null);
+  const themeTransitionTimerRef = useRef<number | null>(null);
 
   const {
     settings,
@@ -68,7 +69,33 @@ export default function App() {
   } = useGameSession({ currentPool, fullFeatureIndex, featureCenterById });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
+    const root = document.documentElement;
+
+    if (themeTransitionTimerRef.current !== null) {
+      window.clearTimeout(themeTransitionTimerRef.current);
+    }
+
+    root.classList.add("theme-transitioning");
+    root.classList.toggle("dark", isDarkMode);
+
+    const themeFadeDurationRaw = getComputedStyle(root).getPropertyValue("--theme-fade-duration").trim();
+    const themeFadeMs = themeFadeDurationRaw.endsWith("ms")
+      ? Number.parseFloat(themeFadeDurationRaw)
+      : themeFadeDurationRaw.endsWith("s")
+        ? Number.parseFloat(themeFadeDurationRaw) * 1000
+        : 1200;
+
+    themeTransitionTimerRef.current = window.setTimeout(() => {
+      root.classList.remove("theme-transitioning");
+      themeTransitionTimerRef.current = null;
+    }, Number.isFinite(themeFadeMs) ? themeFadeMs : 1200);
+
+    return () => {
+      if (themeTransitionTimerRef.current !== null) {
+        window.clearTimeout(themeTransitionTimerRef.current);
+        themeTransitionTimerRef.current = null;
+      }
+    };
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -145,8 +172,8 @@ export default function App() {
       const colorSeed = typeof runtimeColor === "number" ? runtimeColor : Number(feature.properties.color_index ?? 0);
 
       const base = {
-        color: "#2a2a2a",
-        weight: 1.6,
+        color: "transparent",
+        weight: 0,
         fillColor: colorFromIndex(colorSeed),
         fillOpacity: 0.82,
         className: "",
@@ -182,7 +209,7 @@ export default function App() {
   return (
     <motion.div
       dir="rtl"
-      className="h-screen overflow-hidden border border-white/15 p-10 text-ink transition-colors duration-[2600ms]"
+      className="h-screen overflow-hidden border border-white/15 p-10 text-ink"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeOut" }}

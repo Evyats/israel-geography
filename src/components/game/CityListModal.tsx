@@ -52,7 +52,7 @@ export function CityListModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            className="w-full max-w-xl"
+            className="w-full max-w-lg"
             data-no-continue="true"
           >
             <Card className="max-h-[72vh] overflow-hidden">

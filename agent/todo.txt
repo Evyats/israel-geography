@@ -16,3 +16,4 @@ remove the plus minuse buttons on the map
 
 
 
+start screen - when click on cities, the city name moves a bit for some weird reason.

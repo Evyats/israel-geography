@@ -1,6 +1,6 @@
-﻿import { useEffect, type MutableRefObject } from "react";
+﻿import { useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import type { GeoJsonObject } from "geojson";
-import type { Map as LeafletMap } from "leaflet";
+import { geoJSON as leafletGeoJson, latLngBounds, type Map as LeafletMap } from "leaflet";
 import { GeoJSON, MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { motion } from "motion/react";
 
@@ -61,6 +61,99 @@ export function MapSection({
   styleFeature,
   onCityClick,
 }: MapSectionProps) {
+  const featureById = useMemo(() => {
+    const map = new Map<string, LocalityFeature>();
+    const data = mapDataset as { features?: LocalityFeature[] };
+    (data.features ?? []).forEach((feature) => {
+      map.set(feature.properties.id, feature);
+    });
+    return map;
+  }, [mapDataset]);
+
+  const wrongFitKeyRef = useRef<string | null>(null);
+  const [displayScore, setDisplayScore] = useState(session.score);
+  const animatedScoreRef = useRef(session.score);
+
+  useEffect(() => {
+    const selectedId = session.selectedFeatureId;
+    const targetId = session.currentTargetId;
+    const isWrongSelection =
+      session.status === "locked" &&
+      selectedId !== null &&
+      targetId !== null &&
+      selectedId !== targetId;
+
+    if (!isWrongSelection) {
+      wrongFitKeyRef.current = null;
+      return;
+    }
+
+    const fitKey = `${selectedId}-${targetId}`;
+    if (wrongFitKeyRef.current === fitKey) return;
+
+    const selectedFeature = featureById.get(selectedId);
+    const targetFeature = featureById.get(targetId);
+    if (!selectedFeature || !targetFeature || !mapRef.current) return;
+
+    const selectedBounds = leafletGeoJson(selectedFeature as unknown as GeoJsonObject).getBounds();
+    const targetBounds = leafletGeoJson(targetFeature as unknown as GeoJsonObject).getBounds();
+    const merged = latLngBounds([
+      [selectedBounds.getSouthWest().lat, selectedBounds.getSouthWest().lng],
+      [selectedBounds.getNorthEast().lat, selectedBounds.getNorthEast().lng],
+    ]);
+    merged.extend(targetBounds);
+    if (!merged.isValid()) return;
+
+    const map = mapRef.current;
+    const currentViewBounds = map.getBounds();
+    if (currentViewBounds.contains(selectedBounds) && currentViewBounds.contains(targetBounds)) {
+      wrongFitKeyRef.current = fitKey;
+      return;
+    }
+
+    // Compute minimum required zoom to include both cities, with a small extra margin.
+    const padded = merged.pad(0.08);
+    const requiredZoom = map.getBoundsZoom(padded, false);
+    const currentZoom = map.getZoom();
+    const targetZoom = Math.max(map.getMinZoom(), Math.min(currentZoom, requiredZoom));
+    const center = padded.getCenter();
+
+    if (targetZoom < currentZoom) {
+      map.flyTo(center, targetZoom, { duration: 0.65 });
+    } else {
+      map.panTo(center, { animate: true, duration: 0.55 });
+    }
+
+    wrongFitKeyRef.current = fitKey;
+  }, [featureById, mapRef, session.currentTargetId, session.selectedFeatureId, session.status]);
+
+  useEffect(() => {
+    const from = animatedScoreRef.current;
+    const to = session.score;
+    if (from === to) return;
+
+    const startTime = performance.now();
+    const duration = 520;
+    let frameId = 0;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(from + (to - from) * eased);
+      setDisplayScore(value);
+
+      if (t < 1) {
+        frameId = window.requestAnimationFrame(tick);
+        return;
+      }
+      animatedScoreRef.current = to;
+      setDisplayScore(to);
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frameId);
+  }, [session.score]);
+
   return (
     <motion.section variants={cardMotion} className="relative min-h-0 overflow-hidden rounded-3xl border border-transparent bg-transparent">
       {showStats ? (
@@ -69,7 +162,15 @@ export function MapSection({
             <Card className="min-w-[88px] text-center">
               <CardContent className="p-2">
                 <p className="text-xs text-ink/70">ניקוד</p>
-                <p className="text-2xl font-bold text-primary">{session.score}</p>
+                <motion.p
+                  key={session.score}
+                  initial={{ scale: 0.92, opacity: 0.82 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.26, ease: "easeOut" }}
+                  className="text-2xl font-bold text-primary"
+                >
+                  {displayScore}
+                </motion.p>
               </CardContent>
             </Card>
           </motion.div>

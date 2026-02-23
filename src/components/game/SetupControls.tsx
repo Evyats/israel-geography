@@ -21,9 +21,12 @@ export function SetupControls({
   onToggleCityList,
   onToggleTerritories,
 }: SetupControlsProps) {
+  const difficultyButtonClass = "h-10 min-w-[108px] rounded-full px-4";
+  const showListButtonClass = "h-11 w-full rounded-full font-semibold";
+
   return (
     <div>
-      <Card>
+      <Card className="rounded-3xl">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">רמת קושי</CardTitle>
         </CardHeader>
@@ -36,7 +39,7 @@ export function SetupControls({
                   <Button
                     type="button"
                     variant={active ? "default" : "secondary"}
-                    className={active ? "h-10 min-w-[98px] rounded-full px-3" : "h-10 min-w-[98px] rounded-full border border-primary/30 px-3"}
+                    className={active ? difficultyButtonClass : `${difficultyButtonClass} border border-primary/30`}
                     data-no-continue="true"
                     onClick={() => onDifficultyChange(level)}
                   >
@@ -59,10 +62,17 @@ export function SetupControls({
               );
             })}
           </div>
-          <Button id="city-list-toggle-btn" variant="secondary" size="lg" data-no-continue="true" onClick={onToggleCityList}>
+          <Button
+            id="city-list-toggle-btn"
+            variant="secondary"
+            size="lg"
+            className={showListButtonClass}
+            data-no-continue="true"
+            onClick={onToggleCityList}
+          >
             הצג רשימת הערים ברמה שנבחרה
           </Button>
-          <div className="space-y-2 rounded-xl border border-white/20 bg-black/10 px-3 py-3">
+          <div className="space-y-2 rounded-2xl border border-white/20 bg-black/10 px-3 py-3">
             <p className="text-sm font-semibold text-ink/90">אזורי יהודה ושומרון ועזה</p>
             <label className="flex items-center justify-between">
               <span className="text-sm text-ink/90">
