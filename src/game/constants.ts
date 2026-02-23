@@ -10,6 +10,11 @@ export const DATA_FILES: Record<DatasetKey, string> = {
   exclude: "/data/localities_no_wb_gaza.geojson",
 };
 
+export const LEVELS_FILES = {
+  catalog: "/data/levels_catalog.json",
+  legacy: "/data/levels.json",
+};
+
 export const HEBREW_DIFFICULTY: Record<Difficulty, string> = {
   easy: "קל",
   medium: "בינוני",

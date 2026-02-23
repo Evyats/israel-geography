@@ -1,13 +1,11 @@
 
-
-
 modify map to not include city names and roads
 
 segmentation all around israel for removing everything out of israel
 
 slider of difficulty instead of buttons
 slider is not continuous but segmented, for something like 5 levels
-cities will be in a file categorized to these segments
-that config file will have city names and not ids, as well as population size, for better user control
+
+refactor code to be tailored for phone perspective as well
 
 

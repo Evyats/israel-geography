@@ -2,9 +2,9 @@
 import type { GeoJsonObject } from "geojson";
 import { geoJSON as leafletGeoJson } from "leaflet";
 
-import { DATA_FILES, TOTAL_QUESTIONS } from "@/game/constants";
+import { DATA_FILES, LEVELS_FILES, TOTAL_QUESTIONS } from "@/game/constants";
 import { buildRuntimeColoring } from "@/game/map-coloring";
-import type { DatasetKey, Levels, LocalityCollection, LocalityFeature, SettingsState } from "@/game/types";
+import type { DatasetKey, Levels, LevelsCatalog, LocalityCollection, LocalityFeature, SettingsState } from "@/game/types";
 import { normalizeIdList, normalizeSearchText, similarityScore } from "@/game/utils";
 
 export function useGameData() {
@@ -21,7 +21,15 @@ export function useGameData() {
   const [citySearch, setCitySearch] = useState("");
   const [displayedCityEntries, setDisplayedCityEntries] = useState<Array<{ id: string; name: string; score?: number }>>([]);
   const [bestMatchedCityId, setBestMatchedCityId] = useState<string | null>(null);
-  
+
+  const levelsFromCatalog = (catalog: LevelsCatalog): Levels => {
+    return {
+      easy: catalog.easy.map((entry) => entry.id),
+      medium: catalog.medium.map((entry) => entry.id),
+      hard: catalog.hard.map((entry) => entry.id),
+    };
+  };
+
   const activeDatasetKey: DatasetKey = settings.includeTerritories ? "include" : "exclude";
   const activeDataset = datasets[activeDatasetKey];
 
@@ -160,14 +168,24 @@ export function useGameData() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [levelsRes, includeRes, excludeRes] = await Promise.all([
-          fetch("/data/levels.json"),
+        const [catalogRes, legacyRes, includeRes, excludeRes] = await Promise.all([
+          fetch(LEVELS_FILES.catalog),
+          fetch(LEVELS_FILES.legacy),
           fetch(DATA_FILES.include),
           fetch(DATA_FILES.exclude),
         ]);
-        if (!levelsRes.ok || !includeRes.ok || !excludeRes.ok) throw new Error("טעינת הקבצים נכשלה");
+        if (!includeRes.ok || !excludeRes.ok) throw new Error("טעינת הקבצים נכשלה");
 
-        const levelsPayload = (await levelsRes.json()) as Levels;
+        let levelsPayload: Levels | null = null;
+        if (catalogRes.ok) {
+          const catalogPayload = (await catalogRes.json()) as LevelsCatalog;
+          levelsPayload = levelsFromCatalog(catalogPayload);
+        } else if (legacyRes.ok) {
+          levelsPayload = (await legacyRes.json()) as Levels;
+        } else {
+          throw new Error("לא נמצא קובץ רמות חוקי (levels_catalog.json או levels.json)");
+        }
+
         const includePayload = (await includeRes.json()) as LocalityCollection;
         const excludePayload = (await excludeRes.json()) as LocalityCollection;
 

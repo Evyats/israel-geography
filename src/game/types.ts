@@ -23,6 +23,18 @@ export type Levels = {
   hard: string[];
 };
 
+export type LevelCatalogEntry = {
+  id: string;
+  name_he: string;
+  population: number | null;
+};
+
+export type LevelsCatalog = {
+  easy: LevelCatalogEntry[];
+  medium: LevelCatalogEntry[];
+  hard: LevelCatalogEntry[];
+};
+
 export type SettingsState = {
   difficulty: Difficulty;
   includeTerritories: boolean;

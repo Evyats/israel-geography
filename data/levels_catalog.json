@@ -1,0 +1,1318 @@
+{
+  "easy": [
+    {
+      "id": "osm_r_1377264",
+      "name_he": "באר שבע",
+      "population": 220126
+    },
+    {
+      "id": "osm_r_1380013",
+      "name_he": "אשדוד",
+      "population": 251837
+    },
+    {
+      "id": "osm_r_1381350",
+      "name_he": "ירושלים",
+      "population": 882652
+    },
+    {
+      "id": "osm_r_1382177",
+      "name_he": "ראשון לציון",
+      "population": 247323
+    },
+    {
+      "id": "osm_r_1382460",
+      "name_he": "חולון",
+      "population": 211032
+    },
+    {
+      "id": "osm_r_1382494",
+      "name_he": "תל־אביב–יפו",
+      "population": 438818
+    },
+    {
+      "id": "osm_r_1382816",
+      "name_he": "פתח תקווה",
+      "population": 236169
+    },
+    {
+      "id": "osm_r_1382817",
+      "name_he": "בני ברק",
+      "population": 214578
+    },
+    {
+      "id": "osm_r_1383391",
+      "name_he": "נתניה",
+      "population": 245454
+    },
+    {
+      "id": "osm_r_1387888",
+      "name_he": "חיפה",
+      "population": 279591
+    },
+    {
+      "id": "osm_r_10521584",
+      "name_he": "עזה",
+      "population": 590000
+    }
+  ],
+  "medium": [
+    {
+      "id": "osm_r_1246791",
+      "name_he": "רחובות",
+      "population": 150349
+    },
+    {
+      "id": "osm_r_1376782",
+      "name_he": "אשקלון",
+      "population": 152439
+    },
+    {
+      "id": "osm_r_1377264",
+      "name_he": "באר שבע",
+      "population": 220126
+    },
+    {
+      "id": "osm_r_1377284",
+      "name_he": "אילת",
+      "population": 66618
+    },
+    {
+      "id": "osm_r_1379225",
+      "name_he": "רהט",
+      "population": 63922
+    },
+    {
+      "id": "osm_r_1379449",
+      "name_he": "בית שמש",
+      "population": 124445
+    },
+    {
+      "id": "osm_r_1380013",
+      "name_he": "אשדוד",
+      "population": 251837
+    },
+    {
+      "id": "osm_r_1381350",
+      "name_he": "ירושלים",
+      "population": 882652
+    },
+    {
+      "id": "osm_r_1381458",
+      "name_he": "רמלה",
+      "population": 80786
+    },
+    {
+      "id": "osm_r_1381532",
+      "name_he": "לוד",
+      "population": 81202
+    },
+    {
+      "id": "osm_r_1382177",
+      "name_he": "ראשון לציון",
+      "population": 247323
+    },
+    {
+      "id": "osm_r_1382458",
+      "name_he": "בת ים",
+      "population": 158565
+    },
+    {
+      "id": "osm_r_1382460",
+      "name_he": "חולון",
+      "population": 211032
+    },
+    {
+      "id": "osm_r_1382493",
+      "name_he": "רמת גן",
+      "population": 164764
+    },
+    {
+      "id": "osm_r_1382494",
+      "name_he": "תל־אביב–יפו",
+      "population": 438818
+    },
+    {
+      "id": "osm_r_1382816",
+      "name_he": "פתח תקווה",
+      "population": 236169
+    },
+    {
+      "id": "osm_r_1382817",
+      "name_he": "בני ברק",
+      "population": 214578
+    },
+    {
+      "id": "osm_r_1382820",
+      "name_he": "הרצליה",
+      "population": 106022
+    },
+    {
+      "id": "osm_r_1382923",
+      "name_he": "גבעתיים",
+      "population": 62546
+    },
+    {
+      "id": "osm_r_1383391",
+      "name_he": "נתניה",
+      "population": 245454
+    },
+    {
+      "id": "osm_r_1383629",
+      "name_he": "הוד השרון",
+      "population": 64120
+    },
+    {
+      "id": "osm_r_1383630",
+      "name_he": "רעננה",
+      "population": 91534
+    },
+    {
+      "id": "osm_r_1383631",
+      "name_he": "כפר סבא",
+      "population": 109091
+    },
+    {
+      "id": "osm_r_1386836",
+      "name_he": "נצרת",
+      "population": 81631
+    },
+    {
+      "id": "osm_r_1387454",
+      "name_he": "קרית אתא",
+      "population": 62821
+    },
+    {
+      "id": "osm_r_1387888",
+      "name_he": "חיפה",
+      "population": 279591
+    },
+    {
+      "id": "osm_r_1392860",
+      "name_he": "חדרה",
+      "population": 102223
+    },
+    {
+      "id": "osm_r_1932164",
+      "name_he": "נהריה",
+      "population": 65526
+    },
+    {
+      "id": "osm_r_10521584",
+      "name_he": "עזה",
+      "population": 590000
+    }
+  ],
+  "hard": [
+    {
+      "id": "osm_r_1246731",
+      "name_he": "נס ציונה",
+      "population": 48723
+    },
+    {
+      "id": "osm_r_1246791",
+      "name_he": "רחובות",
+      "population": 150349
+    },
+    {
+      "id": "osm_r_1375245",
+      "name_he": "עין קנייא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376758",
+      "name_he": "מצפה רמון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376764",
+      "name_he": "ירוחם",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376773",
+      "name_he": "נאות חובב",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376782",
+      "name_he": "אשקלון",
+      "population": 152439
+    },
+    {
+      "id": "osm_r_1376826",
+      "name_he": "דימונה",
+      "population": 33666
+    },
+    {
+      "id": "osm_r_1376827",
+      "name_he": "תל שבע",
+      "population": 19163
+    },
+    {
+      "id": "osm_r_1376828",
+      "name_he": "מיתר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376829",
+      "name_he": "חורה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376910",
+      "name_he": "ערד",
+      "population": 25530
+    },
+    {
+      "id": "osm_r_1376911",
+      "name_he": "כסייפה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1376931",
+      "name_he": "ערערה בנגב",
+      "population": null
+    },
+    {
+      "id": "osm_r_1377264",
+      "name_he": "באר שבע",
+      "population": 220126
+    },
+    {
+      "id": "osm_r_1377266",
+      "name_he": "שגב שלום",
+      "population": null
+    },
+    {
+      "id": "osm_r_1377267",
+      "name_he": "לקיה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1377284",
+      "name_he": "אילת",
+      "population": 66618
+    },
+    {
+      "id": "osm_r_1377972",
+      "name_he": "ע'ג'ר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1378947",
+      "name_he": "קרית שמונה",
+      "population": 23076
+    },
+    {
+      "id": "osm_r_1379102",
+      "name_he": "אופקים",
+      "population": 31178
+    },
+    {
+      "id": "osm_r_1379103",
+      "name_he": "נתיבות",
+      "population": 36961
+    },
+    {
+      "id": "osm_r_1379225",
+      "name_he": "רהט",
+      "population": 63922
+    },
+    {
+      "id": "osm_r_1379226",
+      "name_he": "להבים",
+      "population": null
+    },
+    {
+      "id": "osm_r_1379335",
+      "name_he": "צפת",
+      "population": 33358
+    },
+    {
+      "id": "osm_r_1379449",
+      "name_he": "בית שמש",
+      "population": 124445
+    },
+    {
+      "id": "osm_r_1379485",
+      "name_he": "קרית גת",
+      "population": 59408
+    },
+    {
+      "id": "osm_r_1380001",
+      "name_he": "שדרות",
+      "population": 27512
+    },
+    {
+      "id": "osm_r_1380013",
+      "name_he": "אשדוד",
+      "population": 251837
+    },
+    {
+      "id": "osm_r_1380014",
+      "name_he": "גן יבנה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1380016",
+      "name_he": "גדרה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1380017",
+      "name_he": "בני עי\"ש",
+      "population": null
+    },
+    {
+      "id": "osm_r_1380226",
+      "name_he": "עפולה",
+      "population": 53958
+    },
+    {
+      "id": "osm_r_1380228",
+      "name_he": "אום אל-פחם",
+      "population": 55411
+    },
+    {
+      "id": "osm_r_1380230",
+      "name_he": "מעלה עירון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1380253",
+      "name_he": "בית שאן",
+      "population": 17587
+    },
+    {
+      "id": "osm_r_1380385",
+      "name_he": "קרית מלאכי",
+      "population": null
+    },
+    {
+      "id": "osm_r_1380415",
+      "name_he": "יבנה",
+      "population": 48193
+    },
+    {
+      "id": "osm_r_1381348",
+      "name_he": "מבשרת ציון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381349",
+      "name_he": "מזכרת בתיה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381350",
+      "name_he": "ירושלים",
+      "population": 882652
+    },
+    {
+      "id": "osm_r_1381394",
+      "name_he": "קרית עקרון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381425",
+      "name_he": "מודיעין-מכבים-רעות",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381458",
+      "name_he": "רמלה",
+      "population": 80786
+    },
+    {
+      "id": "osm_r_1381478",
+      "name_he": "באר יעקב",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381532",
+      "name_he": "לוד",
+      "population": 81202
+    },
+    {
+      "id": "osm_r_1381559",
+      "name_he": "קרית יערים",
+      "population": null
+    },
+    {
+      "id": "osm_r_1381564",
+      "name_he": "אבו גוש",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382177",
+      "name_he": "ראשון לציון",
+      "population": 247323
+    },
+    {
+      "id": "osm_r_1382242",
+      "name_he": "בית דגן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382458",
+      "name_he": "בת ים",
+      "population": 158565
+    },
+    {
+      "id": "osm_r_1382459",
+      "name_he": "אזור",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382460",
+      "name_he": "חולון",
+      "population": 211032
+    },
+    {
+      "id": "osm_r_1382464",
+      "name_he": "אור יהודה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382466",
+      "name_he": "יהוד מונוסון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382493",
+      "name_he": "רמת גן",
+      "population": 164764
+    },
+    {
+      "id": "osm_r_1382494",
+      "name_he": "תל־אביב–יפו",
+      "population": 438818
+    },
+    {
+      "id": "osm_r_1382816",
+      "name_he": "פתח תקווה",
+      "population": 236169
+    },
+    {
+      "id": "osm_r_1382817",
+      "name_he": "בני ברק",
+      "population": 214578
+    },
+    {
+      "id": "osm_r_1382820",
+      "name_he": "הרצליה",
+      "population": 106022
+    },
+    {
+      "id": "osm_r_1382821",
+      "name_he": "רמת השרון",
+      "population": 50786
+    },
+    {
+      "id": "osm_r_1382837",
+      "name_he": "גבעת שמואל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382894",
+      "name_he": "קריית אונו",
+      "population": null
+    },
+    {
+      "id": "osm_r_1382923",
+      "name_he": "גבעתיים",
+      "population": 62546
+    },
+    {
+      "id": "osm_r_1383391",
+      "name_he": "נתניה",
+      "population": 245454
+    },
+    {
+      "id": "osm_r_1383392",
+      "name_he": "כפר יונה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383393",
+      "name_he": "פרדסיה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383629",
+      "name_he": "הוד השרון",
+      "population": 64120
+    },
+    {
+      "id": "osm_r_1383630",
+      "name_he": "רעננה",
+      "population": 91534
+    },
+    {
+      "id": "osm_r_1383631",
+      "name_he": "כפר סבא",
+      "population": 109091
+    },
+    {
+      "id": "osm_r_1383632",
+      "name_he": "כפר שמריהו",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383755",
+      "name_he": "כפר כמא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383756",
+      "name_he": "שבלי - אום אל-ר'נם",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383757",
+      "name_he": "איכסאל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383758",
+      "name_he": "מגדל העמק",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383759",
+      "name_he": "יפיע",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383760",
+      "name_he": "נוף הגליל",
+      "population": 50268
+    },
+    {
+      "id": "osm_r_1383761",
+      "name_he": "דבוריה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383762",
+      "name_he": "כפר תבור",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383934",
+      "name_he": "עין מאהל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383935",
+      "name_he": "משהד",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383936",
+      "name_he": "ריינה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1383937",
+      "name_he": "כפר כנא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386835",
+      "name_he": "עילוט",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386836",
+      "name_he": "נצרת",
+      "population": 81631
+    },
+    {
+      "id": "osm_r_1386837",
+      "name_he": "בועיינה ניג'ידאת",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386839",
+      "name_he": "ביר אל מכסור",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386840",
+      "name_he": "טורעאן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386841",
+      "name_he": "כפר מנדא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386842",
+      "name_he": "אעבלין",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386843",
+      "name_he": "כווכב אבו אל-היג'א",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386845",
+      "name_he": "שפרעם",
+      "population": 40535
+    },
+    {
+      "id": "osm_r_1386851",
+      "name_he": "טמרה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1386852",
+      "name_he": "כאבול",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387228",
+      "name_he": "יבנאל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387273",
+      "name_he": "טבריה",
+      "population": 48505
+    },
+    {
+      "id": "osm_r_1387371",
+      "name_he": "מגדל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387400",
+      "name_he": "מר'אר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387401",
+      "name_he": "עילבון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387454",
+      "name_he": "קרית אתא",
+      "population": 62821
+    },
+    {
+      "id": "osm_r_1387456",
+      "name_he": "קרית ביאליק",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387888",
+      "name_he": "חיפה",
+      "population": 279591
+    },
+    {
+      "id": "osm_r_1387889",
+      "name_he": "נשר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387931",
+      "name_he": "קרית ים",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387962",
+      "name_he": "עכו",
+      "population": 55974
+    },
+    {
+      "id": "osm_r_1387964",
+      "name_he": "קרית מוצקין",
+      "population": 47675
+    },
+    {
+      "id": "osm_r_1387988",
+      "name_he": "דיר אל אסד",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387990",
+      "name_he": "כרמיאל",
+      "population": 53736
+    },
+    {
+      "id": "osm_r_1387991",
+      "name_he": "בענה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387992",
+      "name_he": "מג'ד אל כרום",
+      "population": null
+    },
+    {
+      "id": "osm_r_1387994",
+      "name_he": "שעב",
+      "population": null
+    },
+    {
+      "id": "osm_r_1388009",
+      "name_he": "נחף",
+      "population": null
+    },
+    {
+      "id": "osm_r_1388015",
+      "name_he": "סג'ור",
+      "population": null
+    },
+    {
+      "id": "osm_r_1388019",
+      "name_he": "כסרה - סמיע",
+      "population": null
+    },
+    {
+      "id": "osm_r_1389566",
+      "name_he": "כוכב יאיר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1389567",
+      "name_he": "טירה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1389571",
+      "name_he": "טייבה",
+      "population": 43567
+    },
+    {
+      "id": "osm_r_1391621",
+      "name_he": "יקנעם עילית",
+      "population": null
+    },
+    {
+      "id": "osm_r_1391709",
+      "name_he": "פוריידיס",
+      "population": null
+    },
+    {
+      "id": "osm_r_1391826",
+      "name_he": "בסמ\"ה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1391829",
+      "name_he": "כפר קרע",
+      "population": null
+    },
+    {
+      "id": "osm_r_1391830",
+      "name_he": "ערערה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392112",
+      "name_he": "ג'וליס",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392113",
+      "name_he": "ירכא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392114",
+      "name_he": "כפר יאסיף",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392115",
+      "name_he": "ג'דיידה-מכר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392167",
+      "name_he": "דיר חנא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392179",
+      "name_he": "עראבה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392828",
+      "name_he": "זכרון יעקב",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392847",
+      "name_he": "בנימינה - גבעת עדה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392848",
+      "name_he": "אור עקיבא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392849",
+      "name_he": "פרדס חנה - כרכור",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392860",
+      "name_he": "חדרה",
+      "population": 102223
+    },
+    {
+      "id": "osm_r_1392861",
+      "name_he": "אליכין",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392894",
+      "name_he": "ג׳סר א-זרקא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392964",
+      "name_he": "ראמה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1392988",
+      "name_he": "סכנין",
+      "population": 29856
+    },
+    {
+      "id": "osm_r_1393009",
+      "name_he": "ג'ש",
+      "population": null
+    },
+    {
+      "id": "osm_r_1393026",
+      "name_he": "בית ג'ן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1395617",
+      "name_he": "קדימה - צורן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1395618",
+      "name_he": "קלנסווה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1395619",
+      "name_he": "אבן יהודה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1395620",
+      "name_he": "תל מונד",
+      "population": null
+    },
+    {
+      "id": "osm_r_1398018",
+      "name_he": "זמר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1398019",
+      "name_he": "באקה אל-גרבייה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1398023",
+      "name_he": "חריש",
+      "population": null
+    },
+    {
+      "id": "osm_r_1399119",
+      "name_he": "אבו סנאן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1399133",
+      "name_he": "אלעד",
+      "population": 47033
+    },
+    {
+      "id": "osm_r_1399264",
+      "name_he": "בסמת טבעון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1401193",
+      "name_he": "גני תקווה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1401781",
+      "name_he": "ראש העין",
+      "population": 54688
+    },
+    {
+      "id": "osm_r_1401793",
+      "name_he": "יאנוח - ג'ת",
+      "population": null
+    },
+    {
+      "id": "osm_r_1401800",
+      "name_he": "קריית טבעון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1403089",
+      "name_he": "טירת הכרמל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1403095",
+      "name_he": "דלית אל-כרמל",
+      "population": null
+    },
+    {
+      "id": "osm_r_1403485",
+      "name_he": "עוספייא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1404516",
+      "name_he": "פסוטה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1404529",
+      "name_he": "מעלות תרשיחא",
+      "population": 24364
+    },
+    {
+      "id": "osm_r_1404543",
+      "name_he": "חורפיש",
+      "population": null
+    },
+    {
+      "id": "osm_r_1405256",
+      "name_he": "ג'לג'וליה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1405260",
+      "name_he": "כפר ברא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1405261",
+      "name_he": "כפר קאסם",
+      "population": null
+    },
+    {
+      "id": "osm_r_1406086",
+      "name_he": "שהם",
+      "population": null
+    },
+    {
+      "id": "osm_r_1406228",
+      "name_he": "מגדל תפן",
+      "population": null
+    },
+    {
+      "id": "osm_r_1406229",
+      "name_he": "כפר ורדים",
+      "population": null
+    },
+    {
+      "id": "osm_r_1932118",
+      "name_he": "מעיליא",
+      "population": null
+    },
+    {
+      "id": "osm_r_1932154",
+      "name_he": "מזרעה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1932164",
+      "name_he": "נהריה",
+      "population": 65526
+    },
+    {
+      "id": "osm_r_1932371",
+      "name_he": "סביון",
+      "population": null
+    },
+    {
+      "id": "osm_r_1933844",
+      "name_he": "רמת ישי",
+      "population": null
+    },
+    {
+      "id": "osm_r_1933845",
+      "name_he": "זרזיר",
+      "population": null
+    },
+    {
+      "id": "osm_r_1933846",
+      "name_he": "כעביה טבאש חג'אג'רה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1933868",
+      "name_he": "פקיעין -בוקייעה",
+      "population": null
+    },
+    {
+      "id": "osm_r_1933959",
+      "name_he": "רכסים",
+      "population": null
+    },
+    {
+      "id": "osm_r_2589843",
+      "name_he": "יפו",
+      "population": null
+    },
+    {
+      "id": "osm_r_10072527",
+      "name_he": "ג'ת",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521480",
+      "name_he": "בית חאנון",
+      "population": null
+    },
+    {
+      "id": "osm_r_11993345",
+      "name_he": "אלפי מנשה",
+      "population": null
+    },
+    {
+      "id": "osm_r_15979563",
+      "name_he": "צור הדסה",
+      "population": null
+    },
+    {
+      "id": "osm_r_2717915",
+      "name_he": "רמאללה",
+      "population": null
+    },
+    {
+      "id": "osm_r_2904396",
+      "name_he": "אלבירה",
+      "population": null
+    },
+    {
+      "id": "osm_r_3797325",
+      "name_he": "חברון",
+      "population": null
+    },
+    {
+      "id": "osm_r_6759715",
+      "name_he": "בית לחם",
+      "population": null
+    },
+    {
+      "id": "osm_r_6769556",
+      "name_he": "א-דוחה",
+      "population": null
+    },
+    {
+      "id": "osm_r_6770751",
+      "name_he": "בית סאחור",
+      "population": null
+    },
+    {
+      "id": "osm_r_6771264",
+      "name_he": "ח'לת חמאמה",
+      "population": null
+    },
+    {
+      "id": "osm_r_6771265",
+      "name_he": "הינדזה",
+      "population": null
+    },
+    {
+      "id": "osm_r_6771266",
+      "name_he": "ביר עונה",
+      "population": null
+    },
+    {
+      "id": "osm_r_7881718",
+      "name_he": "אל-עזה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10011903",
+      "name_he": "אריאל",
+      "population": 21000
+    },
+    {
+      "id": "osm_r_10044691",
+      "name_he": "מעלה אדומים",
+      "population": null
+    },
+    {
+      "id": "osm_r_10044900",
+      "name_he": "ביתר עילית",
+      "population": 58985
+    },
+    {
+      "id": "osm_r_10521481",
+      "name_he": "בית לאהיא",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521482",
+      "name_he": "אום א-נאסר",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521507",
+      "name_he": "ג'באליה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521583",
+      "name_he": "א-זהראא",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521584",
+      "name_he": "עזה",
+      "population": 590000
+    },
+    {
+      "id": "osm_r_10521617",
+      "name_he": "ג'וחור א-דיק",
+      "population": null
+    },
+    {
+      "id": "osm_r_10521618",
+      "name_he": "אל-מוע'ראקה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10522701",
+      "name_he": "אל-נסר",
+      "population": null
+    },
+    {
+      "id": "osm_r_10522702",
+      "name_he": "רפיח",
+      "population": null
+    },
+    {
+      "id": "osm_r_10522703",
+      "name_he": "שוקת א-סופי",
+      "population": null
+    },
+    {
+      "id": "osm_r_10522839",
+      "name_he": "ח'אן יונס",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523087",
+      "name_he": "דיר אל-בלאח",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523152",
+      "name_he": "א-זאוואידה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523180",
+      "name_he": "נוסיראת",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523487",
+      "name_he": "אל-קרארה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523500",
+      "name_he": "ואדי א-סלקא",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523631",
+      "name_he": "אל-מע'אזי",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523632",
+      "name_he": "אל-בורייג'",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523633",
+      "name_he": "אל-מוסדר",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523732",
+      "name_he": "עבסאן אל-סע'ירה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523733",
+      "name_he": "עבאסן אל-כבירה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523817",
+      "name_he": "אל-פוח'ארי",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523818",
+      "name_he": "בני סוהילה",
+      "population": null
+    },
+    {
+      "id": "osm_r_10523819",
+      "name_he": "ח'וזאעה",
+      "population": null
+    },
+    {
+      "id": "osm_r_11547610",
+      "name_he": "דורא",
+      "population": null
+    },
+    {
+      "id": "osm_r_11547611",
+      "name_he": "תפוח",
+      "population": null
+    },
+    {
+      "id": "osm_r_11994403",
+      "name_he": "הר אדר",
+      "population": null
+    },
+    {
+      "id": "osm_r_12087672",
+      "name_he": "מ.פ. טולכרם",
+      "population": null
+    },
+    {
+      "id": "osm_r_12087673",
+      "name_he": "מ.פ. נור שמס",
+      "population": null
+    },
+    {
+      "id": "osm_r_19807826",
+      "name_he": "ג'נין‎",
+      "population": null
+    }
+  ]
+}
