@@ -217,7 +217,7 @@ html.theme-transitioning body::before {
 @keyframes city-hit-correct-pulse {
   0% {
     stroke-width: 2.6px;
-    fill-opacity: 0.96;
+    fill-opacity: 1;
     filter: drop-shadow(0 0 0 rgba(22, 163, 74, 0));
   }
   45% {
@@ -227,7 +227,7 @@ html.theme-transitioning body::before {
   }
   100% {
     stroke-width: 2.6px;
-    fill-opacity: 0.97;
+    fill-opacity: 1;
     filter: drop-shadow(0 0 0 rgba(22, 163, 74, 0));
   }
 }
@@ -235,7 +235,7 @@ html.theme-transitioning body::before {
 @keyframes city-hit-wrong-pulse {
   0% {
     stroke-width: 2.6px;
-    fill-opacity: 0.96;
+    fill-opacity: 1;
     filter: drop-shadow(0 0 0 rgba(226, 59, 59, 0));
   }
   45% {
@@ -245,7 +245,7 @@ html.theme-transitioning body::before {
   }
   100% {
     stroke-width: 2.6px;
-    fill-opacity: 0.96;
+    fill-opacity: 1;
     filter: drop-shadow(0 0 0 rgba(226, 59, 59, 0));
   }
 }
@@ -253,7 +253,7 @@ html.theme-transitioning body::before {
 @keyframes city-target-pulse {
   0% {
     stroke-width: 2.6px;
-    fill-opacity: 0.96;
+    fill-opacity: 1;
   }
   45% {
     stroke-width: 3.8px;
@@ -262,7 +262,7 @@ html.theme-transitioning body::before {
   }
   100% {
     stroke-width: 2.6px;
-    fill-opacity: 0.96;
+    fill-opacity: 1;
     filter: drop-shadow(0 0 0 rgba(21, 184, 106, 0));
   }
 }

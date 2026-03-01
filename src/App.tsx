@@ -99,7 +99,7 @@ export default function App() {
         color: "transparent",
         weight: 0,
         fillColor: colorFromIndex(colorSeed),
-        fillOpacity: 0.82,
+        fillOpacity: 1,
         className: "",
       };
 
@@ -109,16 +109,16 @@ export default function App() {
       const isCorrectSelection = session.currentTargetId === session.selectedFeatureId;
 
       if (isLocked && isTarget && isCorrectSelection) {
-        return { ...base, color: "#15b86a", weight: 2.6, fillOpacity: 0.97, className: "city-hit-correct" };
+        return { ...base, color: "#15b86a", weight: 2.6, fillOpacity: 1, className: "city-hit-correct" };
       }
       if (isLocked && isTarget && !isCorrectSelection) {
-        return { ...base, color: "#16a34a", weight: 2.6, fillOpacity: 0.96, className: "city-target-correct" };
+        return { ...base, color: "#16a34a", weight: 2.6, fillOpacity: 1, className: "city-target-correct" };
       }
       if (isLocked && isSelected && !isCorrectSelection) {
-        return { ...base, color: "#e23b3b", weight: 2.6, fillOpacity: 0.96, className: "city-hit-wrong" };
+        return { ...base, color: "#e23b3b", weight: 2.6, fillOpacity: 1, className: "city-hit-wrong" };
       }
       if (leftScreen === "home" && showCityList && bestMatchedCityId === id) {
-        return { ...base, color: "#f59e0b", weight: 3, fillOpacity: 0.96, className: "city-search-highlight" };
+        return { ...base, color: "#f59e0b", weight: 3, fillOpacity: 1, className: "city-search-highlight" };
       }
       return base;
     },
