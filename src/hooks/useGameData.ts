@@ -2,33 +2,31 @@
 import type { GeoJsonObject } from "geojson";
 import { geoJSON as leafletGeoJson } from "leaflet";
 
-import { DATA_FILES, LEVELS_FILES, TOTAL_QUESTIONS } from "@/game/constants";
+import { DATA_FILES, LEVELS_FILES, USE_SEGMENTED_DIFFICULTY } from "@/game/constants";
 import { buildRuntimeColoring } from "@/game/map-coloring";
-import type { DatasetKey, Levels, LevelsCatalog, LocalityCollection, LocalityFeature, SettingsState } from "@/game/types";
+import type {
+  DatasetKey,
+  LevelsSegmentsCatalog,
+  LocalityCollection,
+  LocalityFeature,
+  SettingsState,
+} from "@/game/types";
 import { normalizeIdList, normalizeSearchText, similarityScore } from "@/game/utils";
 
 export function useGameData() {
-  const [levels, setLevels] = useState<Levels | null>(null);
+  const [segmentsCatalog, setSegmentsCatalog] = useState<LevelsSegmentsCatalog | null>(null);
   const [datasets, setDatasets] = useState<Record<DatasetKey, LocalityCollection | null>>({
     include: null,
     exclude: null,
   });
   const [settings, setSettings] = useState<SettingsState>({
-    difficulty: "easy",
     includeTerritories: false,
+    difficultySegmentIndex: 0,
   });
   const [warningText, setWarningText] = useState("");
   const [citySearch, setCitySearch] = useState("");
   const [displayedCityEntries, setDisplayedCityEntries] = useState<Array<{ id: string; name: string; score?: number }>>([]);
   const [bestMatchedCityId, setBestMatchedCityId] = useState<string | null>(null);
-
-  const levelsFromCatalog = (catalog: LevelsCatalog): Levels => {
-    return {
-      easy: catalog.easy.map((entry) => entry.id),
-      medium: catalog.medium.map((entry) => entry.id),
-      hard: catalog.hard.map((entry) => entry.id),
-    };
-  };
 
   const activeDatasetKey: DatasetKey = settings.includeTerritories ? "include" : "exclude";
   const activeDataset = datasets[activeDatasetKey];
@@ -47,17 +45,44 @@ export function useGameData() {
     return buildRuntimeColoring(masterDataset.features as LocalityFeature[]);
   }, [activeDataset, datasets.exclude, datasets.include]);
 
-  const pools = useMemo(() => {
-    if (!levels) return { easy: [], medium: [], hard: [] } as Levels;
-    return {
-      easy: normalizeIdList(levels.easy, fullFeatureIndex),
-      medium: normalizeIdList(levels.medium, fullFeatureIndex),
-      hard: normalizeIdList(levels.hard, fullFeatureIndex),
-    };
-  }, [levels, fullFeatureIndex]);
+  const segmentOptions = useMemo(() => {
+    if (!segmentsCatalog) return [] as Array<{ index: number; label: string; targetCount: number }>;
+    let running = 0;
+    return segmentsCatalog.segments.map((segment, index) => {
+      running += segment.increment_count;
+      return { index, label: segment.label, targetCount: running };
+    });
+  }, [segmentsCatalog]);
 
-  const currentPool = pools[settings.difficulty];
-  const startDisabled = currentPool.length < TOTAL_QUESTIONS;
+  const segmentedPools = useMemo(() => {
+    if (!segmentsCatalog) return [] as string[][];
+    const poolsBySegment: string[][] = [];
+    const running: string[] = [];
+
+    segmentsCatalog.segments.forEach((segment) => {
+      running.push(...segment.cities.map((entry) => entry.id));
+      const normalized = normalizeIdList(running, fullFeatureIndex);
+      poolsBySegment.push(normalized);
+    });
+
+    return poolsBySegment;
+  }, [fullFeatureIndex, segmentsCatalog]);
+
+  const clampedSegmentIndex = useMemo(() => {
+    if (segmentedPools.length === 0) return 0;
+    return Math.max(0, Math.min(settings.difficultySegmentIndex, segmentedPools.length - 1));
+  }, [segmentedPools.length, settings.difficultySegmentIndex]);
+
+  const currentPool = useMemo(() => {
+    if (USE_SEGMENTED_DIFFICULTY && segmentedPools.length > 0) {
+      return segmentedPools[clampedSegmentIndex] ?? [];
+    }
+    return [];
+  }, [clampedSegmentIndex, segmentedPools]);
+  const segmentMinCount = segmentedPools[0]?.length ?? 0;
+  const segmentMaxCount = segmentedPools[segmentedPools.length - 1]?.length ?? 0;
+
+  const startDisabled = currentPool.length === 0;
 
   const visibleFeatures = useMemo(
     () =>
@@ -118,7 +143,6 @@ export function useGameData() {
         const normalizedName = normalizeSearchText(entry.name);
         const includeIndex = normalizedName.indexOf(normalizedQuery);
         if (includeIndex < 0) return null;
-        // Exact text containment first; keeps behavior stable when adding/removing letters.
         return { ...entry, score: 2000 - includeIndex };
       })
       .filter((entry): entry is { id: string; name: string; score: number } => Boolean(entry))
@@ -157,39 +181,23 @@ export function useGameData() {
   }, [cityEntriesForCurrentSettings, citySearch, searchedCityEntries]);
 
   useEffect(() => {
-    if (!activeDataset) return;
-    if (startDisabled) {
-      setWarningText("אין מספיק ערים לרמה שנבחרה (נדרשות לפחות 10).");
-    } else {
-      setWarningText("");
-    }
-  }, [activeDataset, startDisabled]);
-
-  useEffect(() => {
     const load = async () => {
       try {
-        const [catalogRes, legacyRes, includeRes, excludeRes] = await Promise.all([
-          fetch(LEVELS_FILES.catalog),
-          fetch(LEVELS_FILES.legacy),
+        const [segmentsRes, includeRes, excludeRes] = await Promise.all([
+          fetch(LEVELS_FILES.segmentsCatalog),
           fetch(DATA_FILES.include),
           fetch(DATA_FILES.exclude),
         ]);
         if (!includeRes.ok || !excludeRes.ok) throw new Error("טעינת הקבצים נכשלה");
-
-        let levelsPayload: Levels | null = null;
-        if (catalogRes.ok) {
-          const catalogPayload = (await catalogRes.json()) as LevelsCatalog;
-          levelsPayload = levelsFromCatalog(catalogPayload);
-        } else if (legacyRes.ok) {
-          levelsPayload = (await legacyRes.json()) as Levels;
-        } else {
-          throw new Error("לא נמצא קובץ רמות חוקי (levels_catalog.json או levels.json)");
+        if (!segmentsRes.ok) {
+          throw new Error("לא נמצא קובץ רמות מקטעים (levels_segments_catalog.json)");
         }
+        const segmentsPayload = (await segmentsRes.json()) as LevelsSegmentsCatalog;
+        setSegmentsCatalog(segmentsPayload);
 
         const includePayload = (await includeRes.json()) as LocalityCollection;
         const excludePayload = (await excludeRes.json()) as LocalityCollection;
 
-        setLevels(levelsPayload);
         setDatasets({ include: includePayload, exclude: excludePayload });
       } catch (error) {
         const message = error instanceof Error ? error.message : "שגיאה לא ידועה";
@@ -210,6 +218,10 @@ export function useGameData() {
     displayedCityEntries,
     cityEntriesForCurrentSettings,
     currentPool,
+    segmentOptions,
+    segmentMinCount,
+    segmentMaxCount,
+    usingSegmentedDifficulty: USE_SEGMENTED_DIFFICULTY && segmentOptions.length > 0,
     startDisabled,
     visibleDataset,
     featureIndex,
@@ -220,4 +232,3 @@ export function useGameData() {
     activeDataset,
   };
 }
-

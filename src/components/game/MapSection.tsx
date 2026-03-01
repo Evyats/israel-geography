@@ -111,7 +111,6 @@ export function MapSection({
       return;
     }
 
-    // Compute minimum required zoom to include both cities, with a small extra margin.
     const padded = merged.pad(0.08);
     const requiredZoom = map.getBoundsZoom(padded, false);
     const currentZoom = map.getZoom();
@@ -157,9 +156,9 @@ export function MapSection({
   return (
     <motion.section variants={cardMotion} className="relative min-h-0 overflow-hidden rounded-3xl border border-transparent bg-transparent">
       {showStats ? (
-        <div className="absolute right-3 top-3 z-[500] flex gap-2">
+        <div className="absolute right-2 top-2 z-[500] flex gap-2 sm:right-3 sm:top-3">
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
-            <Card className="min-w-[88px] text-center">
+            <Card className="min-w-[74px] text-center sm:min-w-[88px]">
               <CardContent className="p-2">
                 <p className="text-xs text-ink/70">ניקוד</p>
                 <motion.p
@@ -175,7 +174,7 @@ export function MapSection({
             </Card>
           </motion.div>
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
-            <Card className="min-w-[138px]">
+            <Card className="min-w-[118px] sm:min-w-[138px]">
               <CardContent className="p-2">
                 <div className="flex items-center justify-between text-xs text-ink/70">
                   <span>התקדמות</span>
@@ -198,17 +197,11 @@ export function MapSection({
         </div>
       ) : null}
 
-      <MapContainer
-        center={mapCenter}
-        zoom={mapZoom}
-        minZoom={6}
-        maxZoom={13}
-        className="h-full min-h-0"
-        ref={mapRef}
-      >
+      <MapContainer center={mapCenter} zoom={mapZoom} minZoom={6} maxZoom={13} className="h-full min-h-0" ref={mapRef}>
         <TileLayer attribution='&copy; OpenStreetMap contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <MapEvents onMove={onMapMove} />
         <MapResizeController trigger={showCityList} />
+
         <GeoJSON
           key={geoJsonKey}
           data={mapDataset}

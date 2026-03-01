@@ -1,90 +1,92 @@
-﻿import { AnimatePresence, motion } from "motion/react";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+﻿import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { HEBREW_DIFFICULTY } from "@/game/constants";
-import type { Difficulty, SettingsState } from "@/game/types";
+import type { SettingsState } from "@/game/types";
 
 type SetupControlsProps = {
   settings: SettingsState;
   currentPoolLength: number;
-  onDifficultyChange: (difficulty: Difficulty) => void;
+  segmentMinCount: number;
+  segmentMaxCount: number;
+  usingSegmentedDifficulty: boolean;
+  segmentOptions: Array<{ index: number; label: string; targetCount: number }>;
+  onDifficultySegmentChange: (segmentIndex: number) => void;
   onToggleCityList: () => void;
-  onToggleTerritories: (checked: boolean) => void;
+  onSetIncludeTerritories: (includeTerritories: boolean) => void;
 };
 
 export function SetupControls({
   settings,
   currentPoolLength,
-  onDifficultyChange,
+  segmentMinCount,
+  segmentMaxCount,
+  usingSegmentedDifficulty,
+  segmentOptions,
+  onDifficultySegmentChange,
   onToggleCityList,
-  onToggleTerritories,
+  onSetIncludeTerritories,
 }: SetupControlsProps) {
-  const difficultyButtonClass = "h-10 min-w-[108px] rounded-full px-4";
   const showListButtonClass = "h-11 w-full rounded-full font-semibold";
+  const maxSegmentIndex = Math.max(0, segmentOptions.length - 1);
+  const sliderValue = Math.min(settings.difficultySegmentIndex, maxSegmentIndex);
 
   return (
     <div>
       <Card className="rounded-3xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">רמת קושי</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 px-4 pb-4 pt-0">
-          <div className="flex items-center justify-center gap-3">
-            {(["easy", "medium", "hard"] as Difficulty[]).map((level) => {
-              const active = settings.difficulty === level;
-              return (
-                <motion.div key={level} whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
-                  <Button
-                    type="button"
-                    variant={active ? "default" : "secondary"}
-                    className={active ? difficultyButtonClass : `${difficultyButtonClass} border border-primary/30`}
-                    data-no-continue="true"
-                    onClick={() => onDifficultyChange(level)}
-                  >
-                    <span>{HEBREW_DIFFICULTY[level]}</span>
-                    <AnimatePresence>
-                      {active ? (
-                        <motion.span
-                          className="inline-flex items-center rounded-full bg-black/30 px-2 py-0.5 text-xs text-primary-foreground"
-                          initial={{ opacity: 0, x: 12, scale: 0.75 }}
-                          animate={{ opacity: 1, x: 0, scale: 1.08 }}
-                          exit={{ opacity: 0, x: 8, scale: 0.8 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {currentPoolLength}
-                        </motion.span>
-                      ) : null}
-                    </AnimatePresence>
-                  </Button>
-                </motion.div>
-              );
-            })}
+        <CardContent className="space-y-3 px-4 pb-4 pt-4">
+          {usingSegmentedDifficulty ? (
+            <div className="space-y-2 rounded-2xl bg-black/10 px-3 py-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-ink/90">רמת קושי</p>
+                <p className="text-xs font-semibold text-primary">{currentPoolLength} ערים</p>
+              </div>
+              <input
+                data-no-continue="true"
+                type="range"
+                min={0}
+                max={maxSegmentIndex}
+                step={1}
+                value={sliderValue}
+                onChange={(event) => onDifficultySegmentChange(Number(event.target.value))}
+                className="h-2 w-full cursor-pointer accent-[hsl(var(--primary))]"
+              />
+              <div className="flex items-center justify-between text-[10px] text-ink/70">
+                <span>{segmentMinCount || segmentOptions[0]?.targetCount || 0}</span>
+                <span>{segmentMaxCount || segmentOptions[maxSegmentIndex]?.targetCount || currentPoolLength}</span>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="space-y-2 py-1">
+            <div dir="rtl" className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                className="cursor-pointer bg-transparent p-0 text-sm font-semibold text-ink/90"
+                data-no-continue="true"
+                onClick={() => onSetIncludeTerritories(!settings.includeTerritories)}
+              >
+                לכלול את איזורי פלסטין הכבושה?
+              </button>
+              <Switch
+                data-no-continue="true"
+                checked={settings.includeTerritories}
+                onCheckedChange={onSetIncludeTerritories}
+                className="h-8 w-16 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input"
+                checkedLabel="כן"
+                uncheckedLabel="לא"
+              />
+            </div>
           </div>
           <Button
             id="city-list-toggle-btn"
             variant="secondary"
             size="lg"
-            className={showListButtonClass}
+            className={`${showListButtonClass} hidden sm:inline-flex`}
             data-no-continue="true"
             onClick={onToggleCityList}
           >
-            הצג רשימת הערים ברמה שנבחרה
+            הצג רשימת הערים שנבחרה
           </Button>
-          <div className="space-y-2 rounded-2xl border border-white/20 bg-black/10 px-3 py-3">
-            <p className="text-sm font-semibold text-ink/90">אזורי יהודה ושומרון ועזה</p>
-            <label className="flex items-center justify-between">
-              <span className="text-sm text-ink/90">
-                {settings.includeTerritories ? "לכלול אזורי יהודה ושומרון ועזה" : "לא לכלול אזורי יהודה ושומרון ועזה"}
-              </span>
-              <Switch
-                data-no-continue="true"
-                checked={settings.includeTerritories}
-                onCheckedChange={onToggleTerritories}
-              />
-            </label>
-          </div>
         </CardContent>
       </Card>
     </div>

@@ -1,4 +1,4 @@
-﻿import type { DatasetKey, Difficulty, SessionState } from "./types";
+﻿import type { DatasetKey, SessionState } from "./types";
 
 export const TOTAL_QUESTIONS = 10;
 export const FEEDBACK_DELAY_MS = 1200;
@@ -11,15 +11,10 @@ export const DATA_FILES: Record<DatasetKey, string> = {
 };
 
 export const LEVELS_FILES = {
-  catalog: "/data/levels_catalog.json",
-  legacy: "/data/levels.json",
+  segmentsCatalog: "/data/levels_segments_catalog.json",
 };
 
-export const HEBREW_DIFFICULTY: Record<Difficulty, string> = {
-  easy: "קל",
-  medium: "בינוני",
-  hard: "קשה",
-};
+export const USE_SEGMENTED_DIFFICULTY = true;
 
 export const containerMotion = {
   hidden: { opacity: 0 },

@@ -9,3 +9,7 @@ slider is not continuous but segmented, for something like 5 levels
 refactor code to be tailored for phone perspective as well
 
 
+
+
+
+seeing the list of cities - exit when click anywhere out the screen, not only around that container.

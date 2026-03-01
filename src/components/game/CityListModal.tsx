@@ -1,16 +1,14 @@
 ﻿import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { HEBREW_DIFFICULTY } from "@/game/constants";
-import type { Difficulty } from "@/game/types";
 
 type CityEntry = { id: string; name: string; score?: number };
 
 type CityListModalProps = {
   open: boolean;
-  difficulty: Difficulty;
   totalCount: number;
   citySearch: string;
   onCitySearchChange: (value: string) => void;
@@ -21,7 +19,6 @@ type CityListModalProps = {
 
 export function CityListModal({
   open,
-  difficulty,
   totalCount,
   citySearch,
   onCitySearchChange,
@@ -30,15 +27,32 @@ export function CityListModal({
   onClose,
 }: CityListModalProps) {
   const listContainerRef = useRef<HTMLDivElement | null>(null);
+  const modalContentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     listContainerRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [citySearch, open]);
-  return (
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+      if (!modalContentRef.current?.contains(target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [onClose, open]);
+
+  const modal = (
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[1200] flex justify-center bg-black/30 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[2200] flex items-start justify-center bg-black/30 p-4 pt-[10vh] backdrop-blur-sm sm:pt-[12vh]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -48,19 +62,18 @@ export function CityListModal({
           }}
         >
           <motion.div
+            ref={modalContentRef}
             initial={{ opacity: 0, y: 28, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.22 }}
-            className="w-full max-w-xs"
+            className="w-full max-w-[20rem] sm:max-w-xs"
             data-no-continue="true"
           >
             <Card className="max-h-[72vh] overflow-hidden">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between gap-3">
-                  <CardTitle className="text-base text-primary">
-                    רשימת הערים ברמת {HEBREW_DIFFICULTY[difficulty]} ({totalCount})
-                  </CardTitle>
+                  <CardTitle className="text-base text-primary">רשימת הערים ({totalCount})</CardTitle>
                   <Button type="button" size="sm" variant="secondary" className="rounded-full" onClick={onClose}>
                     סגור
                   </Button>
@@ -100,4 +113,6 @@ export function CityListModal({
       ) : null}
     </AnimatePresence>
   );
+
+  return typeof document !== "undefined" ? createPortal(modal, document.body) : null;
 }

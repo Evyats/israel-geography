@@ -1,36 +1,27 @@
-﻿import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+﻿import { useCallback, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import type { GeoJsonObject } from "geojson";
-import { geoJSON as leafletGeoJson, type Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap } from "leaflet";
 import { motion } from "motion/react";
 
 import { MapSection } from "@/components/game/MapSection";
 import { SidebarPanel } from "@/components/game/SidebarPanel";
+import { Button } from "@/components/ui/button";
 import { INITIAL_CENTER, INITIAL_ZOOM, containerMotion } from "@/game/constants";
 import { colorFromIndex } from "@/game/map-coloring";
 import type { LocalityFeature } from "@/game/types";
+import { useCityListMapEffects } from "@/hooks/useCityListMapEffects";
+import { useDebugBridge } from "@/hooks/useDebugBridge";
+import { useDocumentTheme } from "@/hooks/useDocumentTheme";
 import { useGameData } from "@/hooks/useGameData";
 import { useGameSession } from "@/hooks/useGameSession";
 
-declare global {
-  interface Window {
-    render_game_to_text?: () => string;
-    advanceTime?: (ms: number) => Promise<void>;
-  }
-}
-
 export default function App() {
-  useEffect(() => {
-    document.documentElement.setAttribute("lang", "he");
-    document.documentElement.setAttribute("dir", "rtl");
-  }, []);
-
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showCityList, setShowCityList] = useState(false);
   const [mapCenter, setMapCenter] = useState<[number, number]>(INITIAL_CENTER);
   const [mapZoom, setMapZoom] = useState(INITIAL_ZOOM);
 
   const mapRef = useRef<LeafletMap | null>(null);
-  const themeTransitionTimerRef = useRef<number | null>(null);
 
   const {
     settings,
@@ -42,6 +33,10 @@ export default function App() {
     displayedCityEntries,
     cityEntriesForCurrentSettings,
     currentPool,
+    segmentOptions,
+    segmentMinCount,
+    segmentMaxCount,
+    usingSegmentedDifficulty,
     startDisabled,
     visibleDataset,
     featureIndex,
@@ -68,101 +63,30 @@ export default function App() {
     onReplayCurrentSettings,
   } = useGameSession({ currentPool, fullFeatureIndex, featureCenterById });
 
-  useEffect(() => {
-    const root = document.documentElement;
+  useDocumentTheme(isDarkMode);
+  useCityListMapEffects({
+    showCityList,
+    setShowCityList,
+    setCitySearch,
+    mapRef,
+    leftScreen,
+    bestMatchedCityId,
+    featureIndex,
+  });
+  useDebugBridge({
+    session,
+    settings,
+    leftScreen,
+    fullFeatureIndex,
+    mapZoom,
+    mapCenter,
+    visibleCount: featureIndex.size,
+  });
 
-    if (themeTransitionTimerRef.current !== null) {
-      window.clearTimeout(themeTransitionTimerRef.current);
-    }
-
-    root.classList.add("theme-transitioning");
-    root.classList.toggle("dark", isDarkMode);
-
-    const themeFadeDurationRaw = getComputedStyle(root).getPropertyValue("--theme-fade-duration").trim();
-    const themeFadeMs = themeFadeDurationRaw.endsWith("ms")
-      ? Number.parseFloat(themeFadeDurationRaw)
-      : themeFadeDurationRaw.endsWith("s")
-        ? Number.parseFloat(themeFadeDurationRaw) * 1000
-        : 1200;
-
-    themeTransitionTimerRef.current = window.setTimeout(() => {
-      root.classList.remove("theme-transitioning");
-      themeTransitionTimerRef.current = null;
-    }, Number.isFinite(themeFadeMs) ? themeFadeMs : 1200);
-
-    return () => {
-      if (themeTransitionTimerRef.current !== null) {
-        window.clearTimeout(themeTransitionTimerRef.current);
-        themeTransitionTimerRef.current = null;
-      }
-    };
-  }, [isDarkMode]);
-
-  useEffect(() => {
-    if (!showCityList) {
-      setCitySearch("");
-    }
-  }, [setCitySearch, showCityList]);
-
-  useEffect(() => {
-    if (!showCityList) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setShowCityList(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [showCityList]);
-
-  useEffect(() => {
-    mapRef.current?.invalidateSize();
-  }, [showCityList]);
-
-  useEffect(() => {
-    if (leftScreen !== "home" || !showCityList || !bestMatchedCityId) return;
-    const feature = featureIndex.get(bestMatchedCityId);
-    if (!feature || !mapRef.current) return;
-
-    const bounds = leafletGeoJson(feature as unknown as GeoJsonObject).getBounds();
-    if (bounds.isValid()) {
-      mapRef.current.fitBounds(bounds.pad(1.1), { animate: true, duration: 0.7 });
-    }
-  }, [bestMatchedCityId, featureIndex, leftScreen, showCityList]);
-
-  useEffect(() => {
-    window.render_game_to_text = () => {
-      const target = session.currentTargetId ? fullFeatureIndex.get(session.currentTargetId) : null;
-      return JSON.stringify({
-        coordinate_system: "EPSG:4326, lat increases north, lon increases east",
-        mode: session.status,
-        screen: leftScreen,
-        settings,
-        session: {
-          totalQuestions: session.totalQuestions,
-          currentIndex: session.currentIndex,
-          score: session.score,
-          currentTargetId: session.currentTargetId,
-          currentTargetName: target?.properties.name_he ?? null,
-          askedIds: session.askedIds,
-          selectedFeatureId: session.selectedFeatureId,
-        },
-        map: {
-          zoom: mapZoom,
-          center: { lat: mapCenter[0], lng: mapCenter[1] },
-          visibleCount: featureIndex.size,
-        },
-      });
-    };
-
-    window.advanceTime = (ms: number) =>
-      new Promise((resolve) => {
-        window.setTimeout(resolve, Math.max(0, ms));
-      });
-
-    return () => {
-      window.render_game_to_text = undefined;
-      window.advanceTime = undefined;
-    };
-  }, [featureIndex, fullFeatureIndex, leftScreen, mapCenter, mapZoom, session, settings]);
+  const closeCityListAndResetSearch = useCallback(() => {
+    setShowCityList(false);
+    setCitySearch("");
+  }, [setCitySearch]);
 
   const styleFeature = useCallback(
     (feature?: LocalityFeature) => {
@@ -209,7 +133,11 @@ export default function App() {
   return (
     <motion.div
       dir="rtl"
-      className="h-screen overflow-hidden border border-white/15 p-10 text-ink"
+      className="h-[100dvh] overflow-hidden border border-white/15 p-2 text-ink sm:p-3 lg:p-4"
+      style={{
+        paddingTop: "max(0.5rem, env(safe-area-inset-top))",
+        paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
@@ -219,7 +147,7 @@ export default function App() {
       }}
     >
       <motion.main
-        className="mx-auto grid h-full max-w-[1800px] grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)] gap-3 overflow-hidden lg:grid-cols-[1.9fr_minmax(320px,420px)] lg:grid-rows-1"
+        className="mx-auto grid h-full max-w-[1800px] grid-cols-1 grid-rows-[minmax(0,1.2fr)_minmax(0,1fr)] gap-2 overflow-hidden sm:gap-3 lg:grid-cols-[1.9fr_minmax(320px,420px)] lg:grid-rows-1"
         variants={containerMotion}
         initial="hidden"
         animate="show"
@@ -237,7 +165,7 @@ export default function App() {
           }}
           mapRef={mapRef}
           showCityList={showCityList}
-          geoJsonKey={`${activeDatasetKey}-${settings.difficulty}-${currentPool.length}-${session.currentIndex}-${session.selectedFeatureId ?? "none"}-${session.currentTargetId ?? "none"}`}
+          geoJsonKey={`${activeDatasetKey}-${settings.difficultySegmentIndex}-${currentPool.length}-${session.currentIndex}-${session.selectedFeatureId ?? "none"}-${session.currentTargetId ?? "none"}`}
           mapDataset={mapDataset}
           styleFeature={styleFeature}
           onCityClick={handleCityClick}
@@ -249,14 +177,24 @@ export default function App() {
           onToggleTheme={() => setIsDarkMode((prev) => !prev)}
           settings={settings}
           currentPoolLength={currentPool.length}
-          onDifficultyChange={(difficulty) => setSettings((prev) => ({ ...prev, difficulty }))}
+          segmentMinCount={segmentMinCount}
+          segmentMaxCount={segmentMaxCount}
+          usingSegmentedDifficulty={usingSegmentedDifficulty}
+          segmentOptions={segmentOptions}
+          onDifficultySegmentChange={(segmentIndex) =>
+            setSettings((prev) => ({
+              ...prev,
+              difficultySegmentIndex: segmentIndex,
+            }))
+          }
           onToggleCityList={() => setShowCityList((prev) => !prev)}
-          onToggleTerritories={(checked) => setSettings((prev) => ({ ...prev, includeTerritories: checked }))}
+          onSetIncludeTerritories={(includeTerritories) =>
+            setSettings((prev) => ({ ...prev, includeTerritories }))
+          }
           startDisabled={startDisabled}
           warningText={warningText}
           onStartGame={() => {
-            setShowCityList(false);
-            setCitySearch("");
+            closeCityListAndResetSearch();
             onStartGame(startDisabled);
           }}
           currentTargetName={currentTargetName}
@@ -265,19 +203,16 @@ export default function App() {
           feedbackTone={feedbackTone}
           showContinueHint={showContinueHint && session.status === "locked"}
           onStopGame={() => {
-            setShowCityList(false);
-            setCitySearch("");
+            closeCityListAndResetSearch();
             onStopGame();
           }}
           score={session.score}
           onGoHome={() => {
-            setShowCityList(false);
-            setCitySearch("");
+            closeCityListAndResetSearch();
             goToHomeScreen();
           }}
           onReplay={() => {
-            setShowCityList(false);
-            setCitySearch("");
+            closeCityListAndResetSearch();
             onReplayCurrentSettings(startDisabled);
           }}
           showCityList={showCityList}
@@ -289,6 +224,21 @@ export default function App() {
           onCloseCityList={() => setShowCityList(false)}
         />
       </motion.main>
+
+      {leftScreen === "home" && !showCityList ? (
+        <div className="pointer-events-none fixed left-1/2 top-1/2 z-[1300] -translate-x-1/2 -translate-y-1/2 sm:hidden">
+          <Button
+            id="city-list-toggle-btn-mobile-floating"
+            variant="secondary"
+            size="lg"
+            className="pointer-events-auto h-12 rounded-full px-6 font-semibold shadow-[0_12px_32px_rgba(0,0,0,0.28)]"
+            data-no-continue="true"
+            onClick={() => setShowCityList(true)}
+          >
+            הצג רשימת ערים
+          </Button>
+        </div>
+      ) : null}
     </motion.div>
   );
 }

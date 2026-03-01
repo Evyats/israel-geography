@@ -15,9 +15,13 @@ type SidebarPanelProps = {
   onToggleTheme: () => void;
   settings: SettingsState;
   currentPoolLength: number;
-  onDifficultyChange: (difficulty: SettingsState["difficulty"]) => void;
+  segmentMinCount: number;
+  segmentMaxCount: number;
+  usingSegmentedDifficulty: boolean;
+  segmentOptions: Array<{ index: number; label: string; targetCount: number }>;
+  onDifficultySegmentChange: (segmentIndex: number) => void;
   onToggleCityList: () => void;
-  onToggleTerritories: (checked: boolean) => void;
+  onSetIncludeTerritories: (includeTerritories: boolean) => void;
   startDisabled: boolean;
   warningText: string;
   onStartGame: () => void;
@@ -45,9 +49,13 @@ export function SidebarPanel({
   onToggleTheme,
   settings,
   currentPoolLength,
-  onDifficultyChange,
+  segmentMinCount,
+  segmentMaxCount,
+  usingSegmentedDifficulty,
+  segmentOptions,
+  onDifficultySegmentChange,
   onToggleCityList,
-  onToggleTerritories,
+  onSetIncludeTerritories,
   startDisabled,
   warningText,
   onStartGame,
@@ -70,14 +78,14 @@ export function SidebarPanel({
 }: SidebarPanelProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const screen: Screen = leftScreen === "play" || leftScreen === "end" || leftScreen === "home" ? leftScreen : "home";
-  const wideButtonClass = "h-12 min-w-[270px] rounded-full text-base font-bold";
+  const wideButtonClass = "h-12 w-full max-w-[320px] rounded-full text-base font-bold";
 
   useEffect(() => {
     sectionRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [screen]);
 
   return (
-    <section ref={sectionRef} className="flex min-h-0 flex-col gap-3 overflow-y-auto rounded-3xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-white/10">
+    <section ref={sectionRef} className="flex min-h-0 flex-col gap-2 overflow-y-auto rounded-3xl border border-white/20 bg-white/50 p-3 backdrop-blur-sm sm:gap-3 sm:p-4 dark:bg-white/10">
       <header className="relative text-center">
         <div className="absolute left-0 top-0">
           <motion.div whileTap={{ scale: 0.92 }} whileHover={{ scale: 1.05 }}>
@@ -120,13 +128,13 @@ export function SidebarPanel({
           </motion.div>
         </div>
         <motion.div
-          className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full border border-primary/40 bg-primary/20 text-2xl"
+          className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-full border border-primary/40 bg-primary/20 text-xl sm:mb-3 sm:h-14 sm:w-14 sm:text-2xl"
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
         >
           📍
         </motion.div>
-        <h1 className="text-4xl font-extrabold">משחק מיקום ערים בישראל</h1>
+        <h1 className="hidden text-3xl font-extrabold sm:block sm:text-4xl">משחק מיקום ערים בישראל</h1>
       </header>
 
       <AnimatePresence mode="wait" initial={false}>
@@ -143,15 +151,19 @@ export function SidebarPanel({
               <SetupControls
                 settings={settings}
                 currentPoolLength={currentPoolLength}
-                onDifficultyChange={onDifficultyChange}
+                segmentMinCount={segmentMinCount}
+                segmentMaxCount={segmentMaxCount}
+                usingSegmentedDifficulty={usingSegmentedDifficulty}
+                segmentOptions={segmentOptions}
+                onDifficultySegmentChange={onDifficultySegmentChange}
                 onToggleCityList={onToggleCityList}
-                onToggleTerritories={onToggleTerritories}
+                onSetIncludeTerritories={onSetIncludeTerritories}
               />
               <div className="grid justify-center gap-2">
                 <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
                   <Button
                     size="lg"
-                    className="h-14 min-w-[280px] rounded-full bg-gradient-to-l from-primary to-cyan-400 text-lg font-extrabold shadow-[0_14px_30px_rgba(34,145,255,0.32)] hover:from-primary/95 hover:to-cyan-400/95"
+                    className="h-14 w-full max-w-[340px] rounded-full bg-gradient-to-l from-primary to-cyan-400 px-4 text-lg font-extrabold shadow-[0_14px_30px_rgba(34,145,255,0.32)] hover:from-primary/95 hover:to-cyan-400/95"
                     data-no-continue="true"
                     onClick={onStartGame}
                     disabled={startDisabled}
@@ -177,7 +189,18 @@ export function SidebarPanel({
 
                 <div className="min-h-[62px] text-center">
                   <AnimatePresence mode="wait">
-                    {feedbackText ? (
+                    {showContinueHint ? (
+                      <motion.p
+                        key="continue-hint"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="mt-1 text-center text-sm font-medium text-ink/75"
+                      >
+                        לחצו בכל מקום כדי להמשיך לסיבוב הבא
+                      </motion.p>
+                    ) : feedbackText ? (
                       <motion.p
                         key={`feedback-${feedbackTone}-${feedbackText}`}
                         initial={{ opacity: 0, y: 8, scale: 0.98 }}
@@ -205,21 +228,6 @@ export function SidebarPanel({
                         .
                       </motion.p>
                     )}
-                  </AnimatePresence>
-
-                  <AnimatePresence>
-                    {showContinueHint ? (
-                      <motion.p
-                        key="continue-hint"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="mt-1 text-center text-sm font-medium text-ink/75"
-                      >
-                        לחצו בכל מקום כדי להמשיך לסיבוב הבא
-                      </motion.p>
-                    ) : null}
                   </AnimatePresence>
                 </div>
               </div>
@@ -260,7 +268,6 @@ export function SidebarPanel({
 
       <CityListModal
         open={screen === "home" && showCityList}
-        difficulty={settings.difficulty}
         totalCount={cityEntriesForCurrentSettingsCount}
         citySearch={citySearch}
         onCitySearchChange={onCitySearchChange}

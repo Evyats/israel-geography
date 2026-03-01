@@ -35,9 +35,21 @@ export type LevelsCatalog = {
   hard: LevelCatalogEntry[];
 };
 
+export type SegmentBucket = {
+  key: string;
+  label: string;
+  increment_count: number;
+  cities: LevelCatalogEntry[];
+};
+
+export type LevelsSegmentsCatalog = {
+  strategy: "population_desc_increments";
+  segments: SegmentBucket[];
+};
+
 export type SettingsState = {
-  difficulty: Difficulty;
   includeTerritories: boolean;
+  difficultySegmentIndex: number;
 };
 
 export type SessionState = {

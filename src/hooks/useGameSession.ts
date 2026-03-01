@@ -83,12 +83,13 @@ export function useGameSession({ currentPool, fullFeatureIndex, featureCenterByI
       }
 
       const remaining = currentPool.filter((id) => !prev.askedIds.includes(id));
-      if (remaining.length === 0) {
+      const sourcePool = remaining.length > 0 ? remaining : currentPool;
+      if (sourcePool.length === 0) {
         finishGame(prev.score);
         return prev;
       }
 
-      const targetId = randomPick(remaining);
+      const targetId = randomPick(sourcePool);
       const targetFeature = fullFeatureIndex.get(targetId);
       if (!targetFeature) {
         finishGame(prev.score);
@@ -103,7 +104,7 @@ export function useGameSession({ currentPool, fullFeatureIndex, featureCenterByI
         ...prev,
         currentIndex: prev.currentIndex + 1,
         currentTargetId: targetId,
-        askedIds: [...prev.askedIds, targetId],
+        askedIds: remaining.length > 0 ? [...prev.askedIds, targetId] : [targetId],
         selectedFeatureId: null,
         status: "awaiting_answer",
       };

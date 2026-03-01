@@ -1,3 +1,19 @@
 
 - related codex chat:
 Build israel eity map game
+
+- vercel upload:
+Summarize israel geography game
+
+
+
+lets add some more things.
+the difficulty - i want a slider of diffuculty but not a continuous one, it has like segments when you move it where each segment makes it harder (first segment - 10 cities, second 20, third 30, 40, 50, and then jumps of 30 more cities in each segment).
+in the segments when you choose which cities to add - add also the palestinian ones. so when we turn off that palestinian option, we might not see these clean jumps.
+add them by size of city as in the json - meaning the first ones are the biggest and so on. 
+dont remove the easy medium hard buttons from the code but lets hide them for now.
+do the segments definition "hardcoded" meaning add them to the catalog, dont write algorithm that looks at all available and define the segments when launching the game.
+also - lets change how the levels catalog works - i want that every hardder segment / level will automatically include all easier ones, so we wont have these duplications.
+add another levels catalog files for this segmentaiton difficulty method.
+when jumping in that slider between segments we see the map updated accordingly same as happening now in the difficulty buttons.
+do you understand what im asking here for? do you have questions?
