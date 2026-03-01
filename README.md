@@ -1,4 +1,4 @@
-# Israel Cities Geography Trainer
+# <img src="public/assets/icon.png" alt="App icon" width="28" valign="middle" /> Israel Cities Geography Trainer
 
 Simple Hebrew web game for learning city locations in Israel (React + TypeScript).
 

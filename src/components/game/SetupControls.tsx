@@ -31,7 +31,7 @@ export function SetupControls({
   const sliderValue = Math.min(settings.difficultySegmentIndex, maxSegmentIndex);
 
   return (
-    <div>
+    <div className="px-4">
       <Card className="rounded-3xl">
         <CardContent className="space-y-3 px-4 pb-4 pt-4">
           {usingSegmentedDifficulty ? (

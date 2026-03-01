@@ -5,7 +5,7 @@ import { GeoJSON, MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { motion } from "motion/react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { TOTAL_QUESTIONS, cardMotion } from "@/game/constants";
+import { cardMotion } from "@/game/constants";
 import type { LocalityFeature, SessionState } from "@/game/types";
 
 type MapSectionProps = {
@@ -158,8 +158,8 @@ export function MapSection({
       {showStats ? (
         <div className="absolute right-2 top-2 z-[500] flex gap-2 sm:right-3 sm:top-3">
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
-            <Card className="min-w-[74px] text-center sm:min-w-[88px]">
-              <CardContent className="p-2">
+            <Card className="h-[64px] min-w-[74px] rounded-[16px] border-0 bg-white/90 text-center shadow-[0_10px_24px_rgba(15,44,82,0.22)] sm:min-w-[88px] dark:bg-[rgba(13,27,43,0.92)] dark:shadow-[0_10px_24px_rgba(5,17,33,0.5)]">
+              <CardContent className="flex h-full flex-col items-center justify-center p-2">
                 <p className="text-xs text-ink/70">ניקוד</p>
                 <motion.p
                   key={session.score}
@@ -174,8 +174,8 @@ export function MapSection({
             </Card>
           </motion.div>
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
-            <Card className="min-w-[118px] sm:min-w-[138px]">
-              <CardContent className="p-2">
+            <Card className="h-[64px] min-w-[118px] rounded-[16px] border-0 bg-white/90 shadow-[0_10px_24px_rgba(15,44,82,0.22)] sm:min-w-[138px] dark:bg-[rgba(13,27,43,0.92)] dark:shadow-[0_10px_24px_rgba(5,17,33,0.5)]">
+              <CardContent className="flex h-full flex-col justify-center p-2">
                 <div className="flex items-center justify-between text-xs text-ink/70">
                   <span>התקדמות</span>
                   <span className="font-semibold text-primary">{roundProgressPct}%</span>
@@ -188,9 +188,6 @@ export function MapSection({
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-                <p className="mt-1 text-center text-xs font-medium text-ink/80">
-                  סיבוב {session.currentIndex} מתוך {TOTAL_QUESTIONS}
-                </p>
               </CardContent>
             </Card>
           </motion.div>

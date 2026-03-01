@@ -268,16 +268,18 @@ html.theme-transitioning body::before {
 }
 
 .leaflet-control-zoom {
+  --map-control-height: 64px;
   border: none !important;
   border-radius: 16px !important;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(15, 44, 82, 0.22) !important;
+  height: var(--map-control-height);
 }
 
 .leaflet-control-zoom a {
   width: 40px !important;
-  height: 40px !important;
-  line-height: 38px !important;
+  height: calc(var(--map-control-height) / 2) !important;
+  line-height: calc((var(--map-control-height) / 2) - 2px) !important;
   font-size: 24px !important;
   font-weight: 700;
   border: none !important;

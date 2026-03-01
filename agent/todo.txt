@@ -3,13 +3,5 @@ modify map to not include city names and roads
 
 segmentation all around israel for removing everything out of israel
 
-slider of difficulty instead of buttons
-slider is not continuous but segmented, for something like 5 levels
-
-refactor code to be tailored for phone perspective as well
 
 
-
-
-
-seeing the list of cities - exit when click anywhere out the screen, not only around that container.
